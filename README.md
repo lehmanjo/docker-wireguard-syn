@@ -27,3 +27,22 @@ docker-wireguard-syn$ cmd/ip
 Host Gateway: 116.121.42.170
 Container Gateway: 93.192.42.41
 ```
+
+## Run
+
+Modify location of your wireguard configuration (e.g. wg0.conf).  Must be an absolute path.
+```
+docker-wireguard-syn$ vi cmd/run
+WGCONF="${HOME}/my-vpn-wg0.conf"
+```
+
+Modify your local subnet.  VPN will be bypassed to access this subnet.
+```
+docker-wireguard-syn$ vi cmd/run
+LOCAL_SUBNET="192.168.0.0/24"
+```
+
+Modify the container's timezone
+```
+TIMEZONE="Asia/Hong_Kong"
+```
