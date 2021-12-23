@@ -1,10 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NAME=alpine-wireguard
 DOCKER="sudo docker"
 CMD=$(basename $0)
-SHFMT="sudo docker run --rm -v $PWD:/mnt -w /mnt mvdan/shfmt"
-
+SHFMT="${DOCKER} run --rm -v $PWD:/mnt -w /mnt mvdan/shfmt"
 
 #-----------------------------------------------------------------------------
 
