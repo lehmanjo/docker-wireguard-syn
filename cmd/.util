@@ -1,0 +1,83 @@
+#!/bin/bash
+
+NAME=alpine-wireguard
+DOCKER="sudo docker"
+CMD=$(basename $0)
+SHFMT="sudo docker run --rm -v $PWD:/mnt -w /mnt mvdan/shfmt"
+
+if [ "$CMD" == "fmt" ] && [ "$1" != "" ]; then
+  $SHFMT -s -p -i 2 $1
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "build" ]; then
+  ${DOCKER} build -t ${NAME} . || echo "Nothing to build"
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "stop" ]; then
+  ${DOCKER} exec -it ${NAME} /bin/s6-svscanctl -t /var/run/s6/services || echo "No container running or failed to shutdown (s6)."
+  sleep 3
+  ${DOCKER} stop ${NAME} || echo "No running container to stop."
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "start" ]; then
+  ${DOCKER} start ${NAME}
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "run" ]; then
+  ${DOCKER} run --detach --name ${NAME} \
+    --cap-add=NET_ADMIN \
+    --privileged \
+    --network=bridge \
+    --sysctl net.ipv6.conf.all.disable_ipv6=1 \
+    \
+    -v ${HOME}/dev/p2p-proxy/test/mullvad-sg4.conf:/etc/wireguard/wg0.conf \
+    -e LOCAL_SUBNET=192.168.0.0/24 \
+    \
+    -e PUID=1028 \
+    -e PGID=100 \
+    -e TZ="Asia/Hong_Kong" \
+    -v /etc/localtime:/etc/localtime:ro \
+    \
+    ${NAME}
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "bash" ]; then
+  ${DOCKER} exec -it ${NAME} /bin/bash || echo "No container running."
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "logs" ]; then
+  ${DOCKER} logs -f ${NAME}
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "ps" ]; then
+  ${DOCKER} exec -it ${NAME} pstree -p
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "ip" ]; then
+  _HIP=$(curl ipinfo.io/ip 2>/dev/null)
+  echo "Host Gateway: ${_HIP}"
+  _RIP=$(${DOCKER} exec -it ${NAME} /usr/bin/curl ipinfo.io/ip 2>/dev/null || echo 'none found.')
+  echo "Container Gateway: ${_RIP}"
+fi
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "clean" ]; then
+  ${DOCKER} rm ${NAME} || echo "No container to remove."
+fi
