@@ -5,6 +5,8 @@ on:
     - cron: "1 16 * * *"
    push:
     branches: ['release']
+   pull_request:
+    branches: ['release']
    release:
     types: [published]
 
