@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv sh
+
+# Lookup & save default gateway
+LOCAL_GW=`ip route show 0.0.0.0/0 dev eth0 | cut -d\  -f3` 
+echo "export LOCAL_GW=$LOCAL_GW" > /etc/wireguard/.vars
+
+# Add route to local subnet
+/sbin/ip route add ${LOCAL_SUBNET} via ${LOCAL_GW}
+echo export LOCAL_SUBNET=$LOCAL_SUBNET >> /etc/wireguard/.vars
+
+# Remove default route (remove internet access)
+/sbin/ip route del default
+
+
+# https://serverfault.com/questions/31170/how-to-find-the-gateway-ip-address-in-linux
+
