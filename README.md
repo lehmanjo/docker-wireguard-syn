@@ -7,7 +7,9 @@ Minimal Alpine docker image with wireguard/wireguard-go.  Designed to be used on
 - Docker 20.10.3 from Synology Package Center
 - Git Server 2.33.0 from Synology Package Center (for building only)
 
-## Build
+# Development
+
+## Development - Build
 
 To build and run
 ```
@@ -28,7 +30,7 @@ Host Gateway: 116.121.42.170
 Container Gateway: 93.192.42.41
 ```
 
-## Run
+## Development - Customize  
 
 Modify location of your wireguard configuration (e.g. wg0.conf).  Must be an absolute path.
 ```
