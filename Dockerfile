@@ -2,8 +2,6 @@ ARG VERSION=3.15
 FROM alpine:${VERSION}
 
 ENV LOCAL_SUBNET=10.1.2.3/24
-ENV PUID=999
-ENV PGID=999
 
 LABEL maintainer="Jonas Lehmann"
 

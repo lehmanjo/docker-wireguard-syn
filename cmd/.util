@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+#-----------------------------------------------------------------------------
+# The wireguard configuration file (wg0.conf). Absolute path. Root readable
+#-----------------------------------------------------------------------------
+
+WGCONF="${HOME}/my-vpn-wg0.conf"
+LOCAL_SUBNET="10.1.2.3/24"
+TIMEZONE="Asia/Hong_Kong"
+
+#-----------------------------------------------------------------------------
+
 NAME=alpine-wireguard
 DOCKER="sudo docker"
 CMD=$(basename $0)
@@ -58,12 +68,10 @@ if [ "$CMD" == "run" ]; then
     --network=bridge \
     --sysctl net.ipv6.conf.all.disable_ipv6=1 \
     \
-    -v ${HOME}/dev/p2p-proxy/test/mullvad-sg4.conf:/etc/wireguard/wg0.conf \
-    -e LOCAL_SUBNET=192.168.0.0/24 \
+    -v ${WGCONF}:/etc/wireguard/wg0.conf:ro \
+    -e LOCAL_SUBNET=${LOCAL_SUBNET} \
     \
-    -e PUID=1028 \
-    -e PGID=100 \
-    -e TZ="Asia/Hong_Kong" \
+    -e TZ=${TIMEZONE} \
     -v /etc/localtime:/etc/localtime:ro \
     \
     ${NAME}
