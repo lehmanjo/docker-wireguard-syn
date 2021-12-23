@@ -44,5 +44,6 @@ LOCAL_SUBNET="192.168.0.0/24"
 
 Modify the container's timezone
 ```
+docker-wireguard-syn$ vi cmd/run
 TIMEZONE="Asia/Hong_Kong"
 ```
