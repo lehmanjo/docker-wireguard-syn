@@ -49,3 +49,23 @@ Modify the container's timezone
 docker-wireguard-syn$ vi cmd/run
 TIMEZONE="Asia/Hong_Kong"
 ```
+
+# Running Container
+
+Refer to "docker run" documentation.
+
+## Example
+
+Simple example
+```
+  sudo docker run --detach --restart always --name wg \
+    --cap-add=NET_ADMIN \
+    --privileged \
+    --network=bridge \
+    --sysctl net.ipv6.conf.all.disable_ipv6=1 \
+    -v /local/path/to/wg0.conf:/etc/wireguard/wg0.conf:ro \
+    -e LOCAL_SUBNET=10.0.0.0/24 \
+    -e TZ=UTC \
+    -v /etc/localtime:/etc/localtime:ro \
+    alpine-wireguard
+```
