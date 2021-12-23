@@ -4,9 +4,9 @@
 # Customization - Adjust for your environment
 #-----------------------------------------------------------------------------
 
-WGCONF="${HOME}/my-vpn-wg0.conf"	# Absolute path to wireguard configuration
-LOCAL_SUBNET="10.1.2.3/24"			# The local subnet (for bypassing VPN)
-TIMEZONE="Asia/Hong_Kong"			# The preferred timezone of container
+WGCONF="${HOME}/my-vpn-wg0.conf" # Absolute path to wireguard configuration
+LOCAL_SUBNET="10.1.2.3/24"       # The local subnet (for bypassing VPN)
+TIMEZONE="Asia/Hong_Kong"        # The preferred timezone of container
 
 #-----------------------------------------------------------------------------
 
