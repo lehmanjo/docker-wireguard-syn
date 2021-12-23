@@ -7,4 +7,17 @@ Minimal Alpine docker image with wireguard/wireguard-go.  Designed to be used on
 - Docker 20.10.3 from Synology Package Center
 - Git Server 2.33.0 from Synology Package Center (for building only)
 
+## Build
 
+To build and run
+```
+docker-wireguard-syn$ cmd/build; cmd/run
+```
+To stop, rebuild and run
+```
+docker-wireguard-syn$ cmd/stop; cmd/clean; cmd/build; cmd/run
+```
+To open shell into running container
+```
+docker-wireguard-syn$ cmd/bash
+```
