@@ -8,9 +8,5 @@ sleep 5
 LOCAL_EP=`wg show wg0 endpoints | sed 's/^.*\s//' | cut -d\: -f1`
 
 # Loop, exit if connection lost
-while(true); do
-	ping -c4 $LOCAL_EP 1>/tmp/wg0.ping 2>&1
-	if [ "$?" != "0" ]; then wg-quick down wg0; exit 1; fi
-	sleep 15
-done
+exec env LOCAL_EP=$LOCAL_EP sh -c 'while(true); do ping -c4 $LOCAL_EP 1>/tmp/wg0.ping 2>&1; if [ "$?" != "0" ]; then wg-quick down wg0; date > /tmp/wg0.died; exit 1; fi; sleep 15; done'
 
