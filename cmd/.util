@@ -5,6 +5,27 @@ DOCKER="sudo docker"
 CMD=$(basename $0)
 SHFMT="sudo docker run --rm -v $PWD:/mnt -w /mnt mvdan/shfmt"
 
+
+#-----------------------------------------------------------------------------
+
+if [ "$CMD" == "help" ]; then
+  echo
+  echo "Commands:"
+  echo "- help  - display available commands"
+  echo "- build - build image"
+  echo "- clean - remove container"
+  echo "- run   - create & run container"
+  echo "- stop  - stop container"
+  echo "- start - start container"
+  echo "- bash  - launch bash shell inside container"
+  echo "- logs	- show docker logs"
+  echo "- ps	- show process tree inside container"
+  echo "- ip	- display host and container gateways"
+  echo
+fi
+
+#-----------------------------------------------------------------------------
+
 if [ "$CMD" == "fmt" ] && [ "$1" != "" ]; then
   $SHFMT -s -p -i 2 $1
 fi
