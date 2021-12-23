@@ -21,3 +21,9 @@ To open shell into running container
 ```
 docker-wireguard-syn$ cmd/bash
 ```
+To check gateways (host and container)
+```
+docker-wireguard-syn$ cmd/ip
+Host Gateway: 116.121.42.170
+Container Gateway: 93.192.42.41
+```
