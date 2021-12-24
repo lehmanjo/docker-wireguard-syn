@@ -66,6 +66,5 @@ Simple example
     -v /local/path/to/wg0.conf:/etc/wireguard/wg0.conf:ro \
     -e LOCAL_SUBNET=10.0.0.0/24 \
     -e TZ=UTC \
-    -v /etc/localtime:/etc/localtime:ro \
     alpine-wireguard
 ```
