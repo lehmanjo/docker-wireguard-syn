@@ -5,7 +5,7 @@
 #-----------------------------------------------------------------------------
 
 WGCONF="${HOME}/my-vpn-wg0.conf" # Absolute path to wireguard configuration
-LOCAL_SUBNET="10.1.2.3/24"       # The local subnet (for bypassing VPN)
+LOCAL_SUBNET="192.168.0.0/24"    # The local subnet (for bypassing VPN)
 TIMEZONE="Asia/Hong_Kong"        # The preferred timezone of container
 
 #-----------------------------------------------------------------------------
@@ -72,7 +72,6 @@ if [ "$CMD" == "run" ]; then
     -e LOCAL_SUBNET=${LOCAL_SUBNET} \
     \
     -e TZ=${TIMEZONE} \
-    -v /etc/localtime:/etc/localtime:ro \
     \
     ${NAME}
 fi
